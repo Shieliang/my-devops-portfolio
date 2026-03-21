@@ -1,11 +1,208 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>My DevOps Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shieliang's DevOps Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 1. 基础全局样式 */
+        :root {
+            --primary-color: #0d47a1; /* 深蓝色，代表云和信任 */
+            --secondary-color: #4dd0e1; /* 浅蓝色，代表速度和创新 */
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --card-bg: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 2. 头部 (Hero Section) */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 3. 主体内容布局 */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        /* 4. 技能卡片 (Skills) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background-color: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* 5. 项目展示 (Project) */
+        .project-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tag {
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        /* 6. 联系方式 (Contact) */
+        .contact-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .contact-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 7. 响应式布局 (手机) */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { margin: 20px auto; }
+            .project-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World! 这是我的 DevOps 灵魂作品集</h1>
-    <p>Phase 1: S3 + CloudFront 部署成功！</p>
+
+    <header>
+        <h1>Shieliang</h1>
+        <p>Junior DevOps Engineer | Cloud Enthusiast</p>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2><i class="fas fa-user"></i> 关于我</h2>
+            <p>拥有 AWS Cloud Practitioner 认证的开发者，热衷于基础设施自动化、CI/CD 和可观测性 (Observability)。在 Windows 11 + WSL 2 环境下工作，擅长解决“它在我的电脑上明明可以跑”的问题。</p>
+        </section>
+
+        <section id="skills">
+            <h2><i class="fas fa-tools"></i> 技能包</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fab fa-aws"></i>
+                    <p>AWS (S3, CloudFront, IAM)</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-code"></i>
+                    <p>Terraform (IaC)</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-github"></i>
+                    <p>GitHub Actions (CI/CD)</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-docker"></i>
+                    <p>Docker / Docker Compose</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-linux"></i>
+                    <p>Linux (Ubuntu/WSL2)</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-terminal"></i>
+                    <p>Bash Scripting</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-chart-line"></i>
+                    <p>Monitoring (Grafana)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="project">
+            <h2><i class="fas fa-project-diagram"></i> 灵魂作品集项目</h2>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>基于 AWS S3 + CloudFront 的 IaC/CD作品集网站</h3>
+                    <span class="tag">Active</span>
+                </div>
+                <p><strong>技术栈：</strong> AWS S3, CloudFront, Terraform, GitHub Actions, Linux/WSL2</p>
+                <p><strong>项目核心：</strong> 本网站的基础设施完全由 Terraform 定义 (IaC)，实现了真正的可重复性。通过 GitHub Actions，我构建了一套完整的 CI/CD 流水线：任何代码提交都会自动同步到私有的 S3 Bucket，并自动刷新 CloudFront 的全球缓存。这不仅是一个静态网站，更是我对现代 DevOps 流程的实践展示。</p>
+                <p><em>(目前我正在通过 Senior DevOps Engineer 的指导进行安全加固，准备引入 OAC 机制来替代旧的 OAI，将 S3 的外部访问彻底锁死，遵循最小权限原则。)</em></p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2><i class="fas fa-paper-plane"></i> 与我联系</h2>
+            <div class="contact-links">
+                <a href="https://github.com/Shieliang/my-devops-portfolio" target="_blank"><i class="fab fa-github"></i> Github 仓库链接</a>
+            </div>
+        </section>
+    </div>
+
 </body>
 </html>
