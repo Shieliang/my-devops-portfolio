@@ -184,22 +184,108 @@
         </section>
 
         <section id="project">
-            <h2><i class="fas fa-project-diagram"></i> 灵魂作品集项目</h2>
+            <h2><i class="fas fa-project-diagram"></i> 项目实战经验</h2>
+
+            <div class="project-card" style="margin-bottom: 25px;">
+                <div class="project-header">
+                    <h3>SESB Intelligent Bot: 跨语言 RAG 智能客服系统</h3>
+                    <div>
+                        <span class="tag">Generative AI</span>
+                        <span class="tag">RAG</span>
+                    </div>
+                </div>
+                <p><strong>技术栈：</strong> AWS Bedrock (Claude 3.5 Sonnet, Titan Embeddings), AWS EC2, S3, LangChain, FAISS, Streamlit</p>
+                <p><strong>项目描述：</strong> 为解决本地电力服务申请过程中的多语言支持痛点，我开发了这款基于生成式 AI 的智能客服。系统利用 RAG 技术读取 S3 中的官方英文/马来文 PDF 指南，并能用精准的中文解答用户的复杂疑问，同时提供所需表格的 S3 预签名下载链接。</p>
+                <p><strong>核心亮点：</strong> 
+                    <ul>
+                        <li><strong>跨语言 RAG 架构：</strong> 深度优化 LangChain Condense Prompt，实现英文文档检索与中文无缝对话的上下文切换。</li>
+                        <li><strong>云端安全部署：</strong> 部署于 AWS EC2 实例，摒弃硬编码密钥，采用 IAM Roles 实现对 Bedrock 和 S3 的安全、无密钥访问。</li>
+                        <li><strong>智能记忆管理：</strong> 攻克 Streamlit Session State 的“僵尸记忆”难题，实现对话链的硬重置，彻底阻断大模型幻觉。</li>
+                    </ul>
+                </p>
+                <div style="margin-top: 15px;">
+                    <a href="https://github.com/Shieliang/SESB_Chatbot" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fab fa-github"></i> GitHub 源码</a>
+                </div>
+            </div>
+
+            <div class="project-card" style="margin-bottom: 25px;">
+                <div class="project-header">
+                    <h3>SL Photo Converter: $0 成本 Serverless 图像转换器</h3>
+                    <div>
+                        <span class="tag">Serverless</span>
+                        <span class="tag">Architecture</span>
+                    </div>
+                </div>
+                <p><strong>技术栈：</strong> AWS S3, AWS Lambda (Python + Pillow Layer), Amazon API Gateway, CloudFront</p>
+                <p><strong>项目描述：</strong> 告别 24/7 空转的服务器！这是一个完全基于事件驱动 (Event-Driven) 架构的图片格式转换工具。用户通过前端获取预签名 URL 直接将图片安全上传至 S3，自动触发 Lambda 函数进行格式转换，并将结果输出至目标存储桶。</p>
+                <p><strong>核心亮点：</strong> 
+                    <ul>
+                        <li><strong>极致的成本优化：</strong> 利用 AWS Free Tier 和 S3 Lifecycle Rules (24小时自动清理)，实现了项目的 $0 运行成本。</li>
+                        <li><strong>安全性设计：</strong> 采用 CloudFront OAC 机制和严格的 CORS 配置，确保源站绝对私密与安全。</li>
+                        <li><strong>轻量化计算：</strong> 独立编译打包 Pillow 依赖为 Lambda Layer，优化函数冷启动与部署体积。</li>
+                    </ul>
+                </p>
+                <div style="margin-top: 15px;">
+                    <a href="https://dm8g57umos2n0.cloudfront.net/" target="_blank" style="color: var(--primary-color); text-decoration: none; margin-right: 20px; font-weight: bold;"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    <a href="https://github.com/Shieliang/SL_Photo_Converter" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fab fa-github"></i> GitHub 源码</a>
+                </div>
+            </div>
+
+            <div class="project-card" style="margin-bottom: 25px;">
+                <div class="project-header">
+                    <h3>SmartSpend: AI 智能小票记账 App</h3>
+                    <span class="tag">GenAI App</span>
+                </div>
+                <p><strong>技术栈：</strong> Amazon Bedrock, Bedrock Agent, AWS Lambda, API Gateway, AWS S3, FlutterFlow</p>
+                <p><strong>项目描述：</strong> 一款集成生成式 AI 能力的个人日常财务管理应用。旨在解决手动记账的繁琐痛点，用户只需拍下或上传购物收据 (Receipt) 的照片，系统即可自动化完成数据录入。</p>
+                <p><strong>核心亮点：</strong> 利用 API Gateway 和 Lambda 构建高可用后端，深度集成 Amazon Bedrock 及其 Agent 代理功能，实现对非结构化图像数据的精准解析与自动化智能记账。</p>
+                <div style="margin-top: 15px;">
+                    <a href="https://smart-spend-yvgbi2.flutterflow.app/authPage" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                </div>
+            </div>
+
             <div class="project-card">
                 <div class="project-header">
-                    <h3>基于 AWS S3 + CloudFront 的 IaC/CD作品集网站</h3>
-                    <span class="tag">Active</span>
+                    <h3>基于 IaC 与 CI/CD 的云端作品集网站 (本项目)</h3>
+                    <div>
+                        <span class="tag">DevOps</span>
+                        <span class="tag">SecOps</span>
+                    </div>
                 </div>
-                <p><strong>技术栈：</strong> AWS S3, CloudFront, Terraform, GitHub Actions, Linux/WSL2</p>
-                <p><strong>项目核心：</strong> 本网站的基础设施完全由 Terraform 定义 (IaC)，实现了真正的可重复性。通过 GitHub Actions，我构建了一套完整的 CI/CD 流水线：任何代码提交都会自动同步到私有的 S3 Bucket，并自动刷新 CloudFront 的全球缓存。这不仅是一个静态网站，更是我对现代 DevOps 流程的实践展示。</p>
-                <p><em>(目前我正在通过 Senior DevOps Engineer 的指导进行安全加固，准备引入 OAC 机制来替代旧的 OAI，将 S3 的外部访问彻底锁死，遵循最小权限原则。)</em></p>
+                <p><strong>技术栈：</strong> Terraform, GitHub Actions, AWS S3, CloudFront, Docker, Prometheus, Grafana</p>
+                <p><strong>项目描述：</strong> 本作品集网站的基础设施完全由 Terraform 声明式代码 (IaC) 部署。从零打通了代码到云端的持续集成与交付，并融入了企业级的云安全最佳实践与数据可观测性矩阵。</p>
+                <p><strong>核心亮点：</strong> 
+                    <ul>
+                        <li><strong>自动化流水线：</strong> 编写 GitHub Actions 工作流与带防呆机制的 Bash 脚本，实现提交即发布的无缝 CI/CD 闭环。</li>
+                        <li><strong>企业级安全加固：</strong> 抛弃传统的 S3 静态网站托管，采用 CloudFront OAC (Origin Access Control) 机制彻底锁死 S3 公网访问，严格遵循最小权限原则。</li>
+                        <li><strong>自动化监控大屏：</strong> 使用 Docker Compose 在本地拉起 Prometheus 监控栈，通过 Cron 定时任务抓取 AWS CloudWatch 流量指标，实现跨环境的数据可视化。</li>
+                    </ul>
+                </p>
+                <div style="margin-top: 15px;">
+                    <a href="https://d16uuu8qayhp8j.cloudfront.net/" target="_blank" style="color: var(--primary-color); text-decoration: none; margin-right: 20px; font-weight: bold;"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    <a href="https://github.com/Shieliang/my-devops-portfolio" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fab fa-github"></i> GitHub 源码</a>
+                </div>
             </div>
         </section>
 
         <section id="contact">
-            <h2><i class="fas fa-paper-plane"></i> 与我联系</h2>
-            <div class="contact-links">
-                <a href="https://github.com/Shieliang/my-devops-portfolio" target="_blank"><i class="fab fa-github"></i> Github 仓库链接</a>
+            <h2><i class="fas fa-paper-plane"></i> 找到我 (Connect with me)</h2>
+            <div class="contact-links" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
+                <a href="https://www.linkedin.com/in/shie-liang-yong" target="_blank" style="font-size: 1.2rem;">
+                    <i class="fab fa-linkedin" style="color: #0077b5;"></i> LinkedIn
+                </a>
+                
+                <a href="https://community.aws/@shieliang22" target="_blank" style="font-size: 1.2rem;">
+                    <i class="fab fa-aws" style="color: #FF9900;"></i> AWS Builder (@shieliang22)
+                </a>
+                
+                <a href="https://my.jobstreet.com/profiles/shieliang-yong-wRFdWj4ypr" target="_blank" style="font-size: 1.2rem;">
+                    <i class="fas fa-briefcase" style="color: #174ea6;"></i> JobStreet
+                </a>
+                
+                <a href="https://github.com/Shieliang" target="_blank" style="font-size: 1.2rem;">
+                    <i class="fab fa-github" style="color: #333;"></i> GitHub
+                </a>
             </div>
         </section>
     </div>

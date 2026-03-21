@@ -17,68 +17,44 @@ resource "random_id" "bucket_suffix" {
   byte_length = 4
 }
 
-# 1. 创建 S3 Bucket
+# 1. 创建底层 S3 存储桶 (不再作为 Web 服务器)
 resource "aws_s3_bucket" "portfolio" {
   bucket = "my-devops-portfolio-${random_id.bucket_suffix.hex}"
+  force_destroy = true
 }
 
-# 2. 开启 S3 静态网站托管模式
-resource "aws_s3_bucket_website_configuration" "portfolio_website" {
-  bucket = aws_s3_bucket.portfolio.id
-
-  index_document {
-    suffix = "index.html"
-  }
-}
-
-# 3. 关闭 S3 默认的公共访问拦截 (为阶段 1 的 Web 公开访问做准备)
+# 2. 关闭 S3 默认的公共访问拦截 (为阶段 1 的 Web 公开访问做准备)
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket = aws_s3_bucket.portfolio.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
-# 4. 添加 Bucket Policy，允许任何人读取内容
-resource "aws_s3_bucket_policy" "public_read" {
-  bucket = aws_s3_bucket.portfolio.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid       = "PublicReadGetObject"
-        Effect    = "Allow"
-        Principal = "*"
-        Action    = "s3:GetObject"
-        Resource  = "${aws_s3_bucket.portfolio.arn}/*"
-      },
-    ]
-  })
-  depends_on = [aws_s3_bucket_public_access_block.public_access]
+# 3. 创建 OAC (CloudFront 的专属访问签证)
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name                              = "portfolio-oac-${random_id.bucket_suffix.hex}"
+  description                       = "OAC for Portfolio Site"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
-# 5. 创建 CloudFront Distribution
+# 4. 创建 CloudFront Distribution
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    # 阶段 1：使用 S3 网站终结点作为源
-    domain_name = aws_s3_bucket_website_configuration.portfolio_website.website_endpoint
-    origin_id   = "S3PortfolioOrigin"
-
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
+    # 阶段 3 改动：使用 S3 区域内部域名作为源，绑定 OAC 签证
+    domain_name              = aws_s3_bucket.portfolio.bucket_regional_domain_name
+    origin_id                = "S3PortfolioOrigin"
+    origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  # 新增这一行：只使用最便宜的边缘节点区域
-  price_class         = "PriceClass_100"
+  price_class         = "PriceClass_100" # 成本优化：仅使用北美/欧洲等最便宜节点
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
@@ -100,6 +76,30 @@ resource "aws_cloudfront_distribution" "cdn" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
+}
+
+# 5. S3 Bucket Policy: 仅允许我们的 CloudFront CDN 读取文件 (最小权限原则)
+resource "aws_s3_bucket_policy" "cloudfront_oac_policy" {
+  bucket = aws_s3_bucket.portfolio.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowCloudFrontServicePrincipalReadOnly"
+        Effect    = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.portfolio.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.cdn.arn
+          }
+        }
+      }
+    ]
+  })
 }
 
 # 6. 输出 CloudFront 域名，方便部署后直接访问
