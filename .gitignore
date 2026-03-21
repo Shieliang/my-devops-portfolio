@@ -13,3 +13,4 @@ override.tf.json
 
 # 系统隐藏文件
 .DS_Store
+push.sh
