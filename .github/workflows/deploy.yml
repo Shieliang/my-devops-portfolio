@@ -1,0 +1,36 @@
+name: Deploy Portfolio to AWS
+
+# 触发条件：当代码推送到 main 分支时执行 (如果你的主分支叫 master，请修改这里)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # 在 GitHub 提供的 Linux 容器中运行
+
+    steps:
+      # 1. 拉取最新的代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 配置 AWS 凭证 (使用我们在 GitHub Secrets 中存入的变量)
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # 必须与你 Terraform 中部署的 Region 一致
+
+      # 3. 核心原理：幂等性同步 (Idempotent Sync)
+      - name: Sync files to S3
+        run: |
+          # 只同步 src 目录下的文件。--delete 表示如果 Git 里删除了文件，S3 上也同步删除
+          aws s3 sync ./src s3://${{ secrets.S3_BUCKET_NAME }} --delete
+
+      # 4. 核心原理：缓存失效 (Cache Invalidation)
+      - name: Invalidate CloudFront cache
+        run: |
+          # CDN 会缓存旧网页，部署新代码后必须强制刷新 CDN 边缘节点的缓存
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --paths "/*"
