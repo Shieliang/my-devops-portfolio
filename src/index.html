@@ -186,6 +186,10 @@
                     <p>Terraform (IaC)</p>
                 </div>
                 <div class="skill-item">
+                    <i class="fas fa-network-wired" style="color: #326ce5;"></i>
+                    <p>Kubernetes (EKS)</p>
+                </div>
+                <div class="skill-item">
                     <i class="fab fa-github"></i>
                     <p>GitHub Actions (CI/CD)</p>
                 </div>
@@ -213,19 +217,35 @@
                     <i class="fas fa-robot" style="color: #00bcd4;"></i>
                     <p>AWS Bedrock & Agents</p>
                 </div>
-                <div class="skill-item">
-                    <i class="fas fa-link" style="color: #4caf50;"></i>
-                    <p>LangChain</p>
-                </div>
-                <div class="skill-item">
-                    <i class="fas fa-mobile-alt" style="color: #3f51b5;"></i>
-                    <p>FlutterFlow</p>
-                </div>
             </div>
         </section>
 
         <section id="project">
             <h2><i class="fas fa-project-diagram"></i> Hands-On Projects</h2>
+
+            <div class="project-card" style="margin-bottom: 25px;">
+                <div class="project-header">
+                    <h3>SL-CICD-Project: Cloud-Native EKS Architecture & CI/CD Pipeline</h3>
+                    <div>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">CI/CD</span>
+                        <span class="tag">IaC</span>
+                    </div>
+                </div>
+                <p><strong>Tech Stack:</strong> AWS (EKS, CloudFormation, ECR), Kubernetes (HPA), Docker, GitHub Actions, Helm, Prometheus, Grafana</p>
+                <p><strong>Description:</strong> A production-grade, highly available containerized web application deployed on AWS Elastic Kubernetes Service (EKS). Features a fully automated CI/CD pipeline, dynamic auto-scaling, and full-stack observability with real-time Telegram alerting, all strictly provisioned as Infrastructure as Code (IaC).</p>
+                <p><strong>Key Highlights:</strong> 
+                    <ul>
+                        <li><strong>100% IaC Automation:</strong> Designed and provisioned VPCs, EKS clusters, and networking entirely through AWS CloudFormation, automating lifecycle management via Makefiles.</li>
+                        <li><strong>Zero-Downtime Deployments:</strong> Engineered GitHub Actions workflows to build and push Docker images to ECR, using unique Git Commit SHAs to reliably trigger Kubernetes Rolling Updates.</li>
+                        <li><strong>Auto-Scaling (HPA):</strong> Configured the Kubernetes Metrics Server and Horizontal Pod Autoscaler to dynamically scale replicas up or down based on real-time CPU utilization (>50%).</li>
+                        <li><strong>Observability & Incident Response:</strong> Deployed the kube-prometheus-stack via Helm, implementing a Direct Secret Injection strategy to route critical load warnings to a Telegram Bot with under 10s latency.</li>
+                    </ul>
+                </p>
+                <div style="margin-top: 15px;">
+                    <a href="https://github.com/Shieliang/SL-CICD-Project" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fab fa-github"></i> GitHub Repo</a>
+                </div>
+            </div>
 
             <div class="project-card" style="margin-bottom: 25px;">
                 <div class="project-header">
@@ -287,7 +307,7 @@
 
             <div class="project-card">
                 <div class="project-header">
-                    <h3>Cloud Portfolio Website based on IaC & CI/CD (This Project)</h3>
+                    <h3>Cloud Portfolio Website based on IaC & CI/CD</h3>
                     <div>
                         <span class="tag">DevOps</span>
                         <span class="tag">SecOps</span>
