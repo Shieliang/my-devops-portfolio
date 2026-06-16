@@ -294,6 +294,30 @@
 
             <div class="project-card" style="margin-bottom: 25px;">
                 <div class="project-header">
+                    <h3>SL-Subtitle-Generator: Serverless Video Subtitle Generation</h3>
+                    <div>
+                        <span class="tag">Serverless</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">ML</span>
+                    </div>
+                </div>
+                <p><strong>Tech Stack:</strong> AWS Lambda, Step Functions, S3, CloudFront, DynamoDB, SQS, API Gateway, Amazon Transcribe, Amazon Translate, SES</p>
+                <p><strong>Description:</strong> A web app for uploading MP4 videos and generating `.srt` subtitle files, with optional translation into English, Chinese, and Japanese. Built as a polished proof-of-concept with a strong focus on security, reliability, and cost efficiency.</p>
+                <p><strong>Key Highlights:</strong>
+                    <ul>
+                        <li><strong>Invite-based access:</strong> Presigned upload links are validated against DynamoDB invite codes and quotas before issuance.</li>
+                        <li><strong>Asynchronous orchestration:</strong> S3 upload events are buffered through SQS and processed by Step Functions with retries and error paths.</li>
+                        <li><strong>Cost-aware design:</strong> Client-side upload validation enforces a 15-second max video duration to reduce expensive transcription charges.</li>
+                        <li><strong>Operational-ready:</strong> CloudFront fronting the static site, scoped IAM roles, and S3 lifecycle rules for short-term retention.</li>
+                    </ul>
+                </p>
+                <div style="margin-top: 15px;">
+                    <a href="https://d3i0gw43qn3420.cloudfront.net/" target="_blank" style="color: var(--primary-color); text-decoration: none; margin-right: 20px; font-weight: bold;"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                </div>
+            </div>
+
+            <div class="project-card" style="margin-bottom: 25px;">
+                <div class="project-header">
                     <h3>SmartSpend: AI Smart Receipt Tracking App</h3>
                     <span class="tag">GenAI App</span>
                 </div>
